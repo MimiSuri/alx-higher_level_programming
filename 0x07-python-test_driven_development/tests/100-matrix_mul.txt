@@ -1,73 +1,176 @@
-==========================
-The ``matrix_mul`` module
-==========================
+This test file tests the module 100-matrix_mul.py 
+--------------------------------------------
 
-Using ``matrix_mul``
----------------------
+case 0:
+    importing succesfully
+>>> matrix_mul = __import__('100-matrix_mul').matrix_mul
+>>>
 
-Import the function:
+---------------------------------------------
 
-    >>> matrix_mul = __import__('100-matrix_mul').matrix_mul
+case 1:
+    2x2 matrices
 
-Now test it:
+>>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+[[7, 10], [15, 22]]
+>>>
 
-    >>> matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
-    [[7, 10], [15, 22]]
+---------------------------------------------
 
-    >>> matrix_mul([[1, 2]], [[3.0, 4], [5, 6.0]])
-    [[13.0, 16.0]]
+case 2:
+    first argument is not a list
 
-    >>> matrix_mul([[1, -2], [-5, 6]], [[2, 3], [4, -7]])
-    [[-6, 17], [14, -57]]
+>>> print(matrix_mul(([1, 2], [3, 4]), [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: m_a must be a list
+>>>
 
-    >>> matrix_mul([[1, 2]], 9)
-    Traceback (most recent call last):
-    TypeError: m_b must be a list
+---------------------------------------------
 
-    >>> matrix_mul("Hello", [[1, 2]])
-    Traceback (most recent call last):
-    TypeError: m_a must be a list
+case 3:
+    second argument is not a list
 
-    >>> matrix_mul(["Betty", "Holberton"], [[1, 2]])
-    Traceback (most recent call last):
-    TypeError: m_a must be a list of lists
+>>> print(matrix_mul([[1, 2], [3, 4]], "list"))
+Traceback (most recent call last):
+TypeError: m_b must be a list
+>>>
 
-    >>> matrix_mul([[1, 2]], ["Betty", "Holberton"])
-    Traceback (most recent call last):
-    TypeError: m_b must be a list of lists
+---------------------------------------------
 
-    >>> matrix_mul([], [[9, 4]])
-    Traceback (most recent call last):
-    ValueError: m_a can't be empty
+case 4:
+    first argument is not a list of lists
 
-    >>> matrix_mul([[9, 4]], [[]])
-    Traceback (most recent call last):
-    ValueError: m_b can't be empty
+>>> print(matrix_mul([[1, 2], {"h":1}], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: m_a must be a list of lists
+>>>
 
-    >>> matrix_mul([[1, 2], ["Hello", 9]], [[9, 4], [2, 5]])
-    Traceback (most recent call last):
-    TypeError: m_a should contain only integers or floats
+---------------------------------------------
 
-    >>> matrix_mul([[9, 4], [2, 5]], [[1, 2], ["Hello", 9]])
-    Traceback (most recent call last):
-    TypeError: m_b should contain only integers or floats
+case 5:
+    second argument is not a list of lists
 
-    >>> matrix_mul([[9, 4], [2]], [[1, 2], [4, 9]])
-    Traceback (most recent call last):
-    TypeError: each row of m_a must should be of the same size
+>>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], 9]))
+Traceback (most recent call last):
+TypeError: m_b must be a list of lists
+>>>
 
-    >>> matrix_mul([[9, 4], [2, 7.0]], [[1], [4, 9]])
-    Traceback (most recent call last):
-    TypeError: each row of m_b must should be of the same size
+---------------------------------------------
 
-    >>> matrix_mul([[9, 4, 4], [2, 8, 2]], [[1, 2], [4, 9]])
-    Traceback (most recent call last):
-    ValueError: m_a and m_b can't be multiplied
+case 6:
+    first argument is empty
 
-    >>> matrix_mul([[9, 4, 4], [2, 8, 2]])
-    Traceback (most recent call last):
-    TypeError: matrix_mul() missing 1 required positional argument: 'm_b'
+>>> print(matrix_mul([], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+ValueError: m_a can't be empty
+>>>
 
-    >>> matrix_mul()
-    Traceback (most recent call last):
-    TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+---------------------------------------------
+
+case 7:
+    first argument is a empty list of lists
+
+>>> print(matrix_mul([[]], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+ValueError: m_a can't be empty
+>>>
+
+---------------------------------------------
+
+case 8:
+    second argument is empty
+
+>>> print(matrix_mul([[1, 2], [3, 4]], []))
+Traceback (most recent call last):
+ValueError: m_b can't be empty
+>>>
+
+---------------------------------------------
+
+case 9:
+    second argument is a empty list of lists
+
+>>> print(matrix_mul([[1, 2], [3, 4]], [[]]))
+Traceback (most recent call last):
+ValueError: m_b can't be empty
+>>>
+
+---------------------------------------------
+
+case 10:
+    first argument no integer or float
+
+>>> print(matrix_mul([[1, "hola"], [3, 4]], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: m_a should contain only integers or floats
+>>>
+
+---------------------------------------------
+
+case 11:
+    second argument no integer or float
+
+>>> print(matrix_mul([[1, 2], [3, 4]], [[[1], 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: m_b should contain only integers or floats
+>>>
+
+---------------------------------------------
+
+case 12:
+    first argument no rectangular matrix
+
+>>> print(matrix_mul([[1, 2, 3], [3, 4]], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: each row of m_a must should be of the same size
+>>>
+
+---------------------------------------------
+
+case 13:
+    second argument no rectangular matrix
+
+>>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], [3]]))
+Traceback (most recent call last):
+TypeError: each row of m_b must should be of the same size
+>>>
+
+---------------------------------------------
+
+case 14:
+    wrong dimensions . can´t multiply
+
+>>> print(matrix_mul([[1, 2, 3], [3, 4, 5], [5, 6, 7]], [[1, 2], [3, 4]]))
+Traceback (most recent call last):
+ValueError: m_a and m_b can't be multiplied
+>>>
+
+---------------------------------------------
+
+case 15:
+    big multiplication
+
+>>> print(matrix_mul([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]],[[10], [11], [12], [13], [14], [15], [16], [17], [18], [19]]))
+[[735]]
+>>>
+
+---------------------------------------------
+
+case 16:
+    missing one argument
+
+>>> print(matrix_mul([[1, 2], [3, 4]]))
+Traceback (most recent call last):
+TypeError: matrix_mul() missing 1 required positional argument: 'm_b'
+>>>
+
+---------------------------------------------
+
+case 17:
+    missing two arguments
+
+>>> print(matrix_mul())
+Traceback (most recent call last):
+TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+>>>
+
